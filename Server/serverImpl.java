@@ -18,12 +18,22 @@ public class serverImpl implements serverItf {
             //notify all the conencted players
             publish(a.getName()+ " joined");            
             //Add the player
-            Player p=new Player(1,1,a.getName(),1,a);
+            Player p=new Player(1,1,a.getName(),"b",a);
             Players.add(p);
-            //Send postions of current players in the map
-            String temp=Players.toString();
+            //Send postions of current players in the map    
             
-           // p.client.latestPos(Players);
+            String PlayersList="";
+            for(int i=0; i<Players.size();i++){
+            try{
+                PlayersList=PlayersList+(Players.get(i).getName()+"/"+Players.get(i).getX()+"/"+
+                                        Players.get(i).getY()+"/"+Players.get(i).getColor()+";");
+               }
+            catch(Exception e){}
+               }  
+            System.out.println(PlayersList);
+            
+            
+            p.client.latestPos(PlayersList);
             return true;
         }
 
@@ -60,11 +70,22 @@ public class serverImpl implements serverItf {
                 }
                     //else System.out.println("Player not found");
             }
-                       
-            // broadcast the lastest position to all connected players 
+            
+            //Store the player list in a string 
+            String PlayersList="";
             for(int i=0; i<Players.size();i++){
             try{
-                Players.get(i).client.latestPos(Players);
+                PlayersList=PlayersList+(Players.get(i).getName()+"/"+Players.get(i).getX()+"/"+
+                                        Players.get(i).getY()+"/"+Players.get(i).getColor()+";");
+               }
+            catch(Exception e){}
+               } 
+                       
+            // broadcast the lastest position to all connected players             
+            for(int i=0; i<Players.size();i++){
+            try{
+                System.out.println("x :"+Players.get(i).getX()+" y : "+Players.get(i).getY());
+                Players.get(i).client.latestPos(PlayersList);
                }
             catch(Exception e){}
                }            
