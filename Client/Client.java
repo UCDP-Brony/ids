@@ -41,13 +41,12 @@ public class Client {
 	serverItf serverI = (serverItf) registry.lookup("toClient");
         
         // Create a Name remote object
-        clientImpl c=new clientImpl("player3 ") ;
+        clientImpl c=new clientImpl("player3  ") ;
         clientItf client_stub1 = (clientItf) UnicastRemoteObject.exportObject(c, 0);
         
 	Boolean res = serverI.connect(c);
         
         serverI.movePlayer(1, c);
-	//System.out.println(res);
 
 	} catch (Exception e)  {
 		System.err.println("Error on client: " + e);
