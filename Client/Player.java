@@ -1,13 +1,14 @@
 import java.io.Serializable;
+import java.rmi.Remote;
 
-public class Player implements Serializable{
+public class Player implements Remote{
     private int x;
     private int y;
     private final String name;
-    private final int color;
+    private final String color;
     public clientItf client;
 
-    public Player(int x, int y, String name, int color,clientItf client ) {
+    public Player(int x, int y, String name, String color,clientItf client ) {
         this.x = x;
         this.y = y;
         this.name = name;
@@ -35,7 +36,7 @@ public class Player implements Serializable{
         return name;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 }
